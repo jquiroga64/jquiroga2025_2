@@ -1,0 +1,35 @@
+/* Estilo general */
+*{
+    background-image: url(C:\xampp\htdocs\prof\HTML\Tablas\807567.JPG);
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+td, th {
+  border: 1px solid black;
+  text-align: center;
+  font-size: 16px; /* aumentar tamaño de letra */
+  padding: 10px;   /* espacio interno de celdas */
+}
+
+/* Tabla matriz */
+.matriz td {
+  width: 80px;   /* antes 40px */
+  height: 80px;  /* antes 40px */
+}
+
+/* Tabla planilla */
+.planilla th {
+  background-color: #ffdb0cec;
+  height: 60px;  /* antes 40px */
+  font-size: 16px;
+}
+
+.planilla td {
+  width: 120px;  /* antes 80px */
+  height: 60px;  /* antes 40px */
+  font-size: 16px;
+}

@@ -1,0 +1,67 @@
+body {
+    font-family: "Papyrus", fantasy;
+    background-color: #f0f8ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Contenedor en fila */
+.contenedor-fila {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+/* Estilo general de las cajas */
+.caja {
+    width: 200px;
+    height: 150px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Estilos individuales */
+.caja1 {
+    background-color: #ff4d4d;
+    background-image: url('img1.jpg'); /* reemplazar con tu imagen */
+    font-size: 1.2rem;
+}
+
+.caja2 {
+    background-color: #4dff88;
+    background-image: url('img2.jpg');
+    font-size: 1rem;
+}
+
+.caja3 {
+    background-color: #4d88ff;
+    background-image: url('img3.jpg');
+    font-size: 1.4rem;
+}
+
+.caja4 {
+    background-color: #9933ff;
+    background-image: url('img4.jpg');
+    font-size: 1.1rem;
+}
+
+.caja5 {
+    background-color: #ff9933;
+    background-image: url('img5.jpg');
+    font-size: 1.3rem;
+}
+
+.caja6 {
+    background-color: #33cccc;
+    background-image: url('img6.jpg');
+    font-size: 1.2rem;
+}

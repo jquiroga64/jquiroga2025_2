@@ -1,0 +1,55 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body con imagen de fondo fija para todo el viewport */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('tu-imagen.jpg'); /* reemplazar con tu imagen */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* fondo fijo */
+    font-family: "Papyrus", fantasy;
+}
+
+/* Contenedor centrado */
+.centro {
+    background-color: rgba(255, 255, 255, 0.8); /* fondo semitransparente */
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos de contenido */
+.centro h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.centro p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.centro button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #004080;
+    color: white;
+    transition: background 0.3s;
+}
+
+.centro button:hover {
+    background-color: #0066cc;
+}

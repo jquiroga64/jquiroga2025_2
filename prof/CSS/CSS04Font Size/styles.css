@@ -1,0 +1,49 @@
+/* Contenedor principal */
+.container {
+    width: 90%;
+    margin: 20px auto;
+    font-family: "Papyrus", fantasy; /* fuente fantasiosa */
+}
+
+/* Estilo de cada fila */
+.fila {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #b3c6ff;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #e6f2ff; /* celeste claro */
+}
+
+/* Encabezado */
+.header {
+    background-color: #004080; /* azul oscuro */
+    color: white;
+    font-weight: bold;
+}
+
+/* Estilo de cada celda */
+.celda {
+    flex: 1;
+    text-align: center;
+    font-size: 1.5rem; /* tamaño base en rem */
+}
+
+/* Alternar colores de filas */
+.fila:nth-child(even):not(.header) {
+    background-color: #cce0ff;
+}
+
+/* Media queries para adaptar tamaño de fuente */
+@media (max-width: 1024px) {
+    .celda { font-size: 1.3rem; }
+}
+
+@media (max-width: 768px) {
+    .celda { font-size: 1.1rem; }
+}
+
+@media (max-width: 480px) {
+    .celda { font-size: 0.9rem; }
+}

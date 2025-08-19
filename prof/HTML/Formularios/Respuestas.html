@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Registrados</title>
+</head>
+<body>
+    <h1>Datos del Registro</h1>
+    <p><strong>Nombre:</strong> <span id="resNombre"></span></p>
+    <p><strong>Correo electrónico:</strong> <span id="resEmail"></span></p>
+    <p><strong>Edad:</strong> <span id="resEdad"></span></p>
+    <p><strong>Usuario:</strong> <span id="resUsuario"></span></p>
+    <p><strong>Contraseña:</strong> <span id="resPassword"></span></p>
+
+    <button onclick="volverFormulario()">Volver al Registro</button>
+
+    <script>
+        // Recuperar datos del registro
+        document.getElementById('resNombre').textContent = localStorage.getItem('nombre');
+        document.getElementById('resEmail').textContent = localStorage.getItem('email');
+        document.getElementById('resEdad').textContent = localStorage.getItem('edad');
+        document.getElementById('resUsuario').textContent = localStorage.getItem('usuario');
+        document.getElementById('resPassword').textContent = localStorage.getItem('password');
+
+        function volverFormulario() {
+            // Limpiar localStorage y volver al formulario
+            localStorage.clear();
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

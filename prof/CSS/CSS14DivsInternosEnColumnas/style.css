@@ -1,0 +1,42 @@
+body {
+    font-family: "Papyrus", fantasy;
+    background-color: #f0f8ff;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.contenedor-articulos {
+    overflow: hidden; /* limpiar flotaciones */
+}
+
+/* Artículos flotando a la izquierda */
+.articulo {
+    float: left;
+    width: 25%; /* 4 columnas en escritorio */
+    background-color: #004080;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin: 10px 0 10px 0;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* Media queries para reducir columnas */
+@media (max-width: 1024px) {
+    .articulo {
+        width: 33.33%; /* 3 columnas */
+    }
+}
+
+@media (max-width: 768px) {
+    .articulo {
+        width: 50%; /* 2 columnas */
+    }
+}
+
+@media (max-width: 480px) {
+    .articulo {
+        width: 100%; /* 1 columna */
+    }
+}
