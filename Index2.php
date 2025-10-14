@@ -1,5 +1,5 @@
 <?php
-// index.php - Interfaz AJAX con cuenta regresiva antes de encriptar
+// index.php - Interfaz AJAX con cuenta regresiva antes de encriptar (versión mejorada)
 ?>
 <!doctype html>
 <html lang="es">
@@ -9,64 +9,162 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     :root {
-      --w: 1100px;
-      --h-top: 260px;
-      --h-bottom: 220px;
+      --w: 100%;
       font-family: "Georgia", serif;
     }
-    body { margin:20px; }
+
+    body {
+      margin: 20px;
+      background-color: #f4f7fb;
+    }
+
     .container {
-      width: var(--w);
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: var(--h-top) var(--h-bottom);
-      gap: 0;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
     }
-    .inputPanel { background:#9b9b9b; padding:25px; box-sizing:border-box; }
-    .encryptPanel { background:#0634ff; color:#fff; text-align:center; padding:25px; box-sizing:border-box; }
-    .resultPanel { background:#fff200; padding:25px; box-sizing:border-box; }
-    .statusPanel { background:#3a3a3b; color:#fff; padding:25px; box-sizing:border-box; }
-    .bigArea { background: #c6e6f1; padding:25px; box-sizing:border-box; }
 
-    h1 { margin:0 0 18px 0; font-size:28px; }
-    label { display:block; margin-bottom:8px; font-size:20px; }
-    input[type="text"], input[type="number"] { width:260px; padding:6px; font-size:16px; }
+    .inputPanel {
+      background: #4e73df;
+      color: #fff;
+      padding: 30px;
+      box-sizing: border-box;
+      border-radius: 12px;
+    }
+
+    .encryptPanel {
+      background: #1cc88a;
+      color: #fff;
+      text-align: center;
+      padding: 25px;
+      box-sizing: border-box;
+      border-radius: 12px;
+    }
+
+    .resultPanel {
+      background: #f6c23e;
+      color: #000;
+      padding: 25px;
+      box-sizing: border-box;
+      border-radius: 12px;
+    }
+
+    .statusPanel {
+      background: #858796;
+      color: #fff;
+      padding: 25px;
+      box-sizing: border-box;
+      border-radius: 12px;
+    }
+
+    .bigArea {
+      background: #e2e6ea;
+      padding: 25px;
+      box-sizing: border-box;
+      border-radius: 12px;
+      grid-column: 1 / -1;
+    }
+
+    h1 {
+      margin: 0 0 18px 0;
+      font-size: 26px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      max-width: 260px;
+      padding: 6px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
     button.iconBtn {
-      border:none; background:transparent; cursor:pointer; margin-top:18px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      margin-top: 18px;
     }
-    .arrowWrap { display:flex; justify-content:center; align-items:center; height:100%; }
-    .resText { font-family: monospace; white-space:pre-wrap; font-size:14px; color:#000; }
 
-    .statusTitle { font-size:20px; margin-bottom:12px; color:#fff; }
-    .resultTitle { font-size:26px; margin-bottom:12px; }
+    .arrowWrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      flex-direction: column;
+    }
 
-    /* botón grande con texto y contador */
+    .resText {
+      font-family: monospace;
+      white-space: pre-wrap;
+      font-size: 14px;
+      color: #000;
+    }
+
+    .statusTitle {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .resultTitle {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    /* botón principal */
     #startBtn {
-      display:inline-block;
-      padding:12px 18px;
-      background:#fff;
-      color:#0634ff;
-      border-radius:6px;
-      font-size:18px;
-      cursor:pointer;
-      border:3px solid rgba(0,0,0,0.15);
+      display: inline-block;
+      padding: 12px 18px;
+      background: #fff;
+      color: #1cc88a;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+      border: 3px solid rgba(0, 0, 0, 0.15);
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
     }
-    #startBtn[disabled] { opacity:0.5; cursor:not-allowed; }
 
-    .small { font-size:13px; color:#222; margin-top:8px; display:block; }
+    #startBtn:hover:not([disabled]) {
+      background: #1cc88a;
+      color: #fff;
+    }
+
+    #startBtn[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #222;
+      margin-top: 8px;
+      display: block;
+    }
+
     .progressBar {
       width: 260px;
       height: 12px;
       background: #eee;
       border-radius: 6px;
-      overflow:hidden;
+      overflow: hidden;
       margin: 12px auto 0;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     }
+
     .progressFill {
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, #4caf50, #8bc34a);
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #1cc88a, #4e73df);
       transition: width 0.2s linear;
     }
   </style>
@@ -85,8 +183,7 @@
 
     <div class="encryptPanel">
       <h1>Encriptar</h1>
-      <div class="arrowWrap" style="flex-direction:column;">
-        <!-- botón visible que inicia la cuenta regresiva -->
+      <div class="arrowWrap">
         <button id="startBtn" title="Iniciar encriptado">Iniciar encriptado</button>
         <div class="progressBar" aria-hidden="true">
           <div id="progressFill" class="progressFill"></div>
@@ -127,7 +224,6 @@ document.addEventListener('DOMContentLoaded', function(){
   let startTime = null;
   let totalMs = 0;
 
-  // función que hace la petición al servidor (igual que antes)
   async function doEncrypt() {
     const clave = claveInput.value || '';
     resultado.textContent = '';
@@ -143,9 +239,7 @@ document.addEventListener('DOMContentLoaded', function(){
     try {
       const resp = await fetch('encrypt.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ clave })
       });
 
@@ -162,9 +256,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
       let out = "";
       out += "Clave: " + data.raw + "\n";
-      out += "Clave encriptada en md5 (128 bits o 16 octetos o 16 pares hexadecimales):\n" + data.md5 + "\n\n";
+      out += "Clave encriptada en md5 (128 bits o 16 octetos):\n" + data.md5 + "\n\n";
       out += "Clave: " + data.raw + "\n";
-      out += "Clave encriptada en sha256 (256 bits o 32 octetos o 32 pares hexadecimales):\n" + data.sha256 + "\n";
+      out += "Clave encriptada en sha256 (256 bits o 32 octetos):\n" + data.sha256 + "\n";
 
       resultado.textContent = out;
       estado.innerText = 'Operación completada correctamente.';
@@ -178,9 +272,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  // inicia la cuenta regresiva y luego llama a doEncrypt()
   function startCountdownAndEncrypt() {
-    // si ya está en curso, ignorar
     if (timer) return;
 
     const delaySec = Math.max(0, Math.floor(Number(delayInput.value) || 0));
@@ -191,7 +283,6 @@ document.addEventListener('DOMContentLoaded', function(){
       return;
     }
 
-    // Si delay es 0 hacemos la petición inmediatamente
     if (delaySec === 0) {
       disableControls(true);
       estado.innerText = 'Enviando...';
@@ -199,7 +290,6 @@ document.addEventListener('DOMContentLoaded', function(){
       return;
     }
 
-    // preparar UI de cuenta regresiva
     disableControls(true);
     estado.innerText = 'Cuenta regresiva iniciada...';
     countdownEl.textContent = `Encriptando en ${delaySec} s`;
@@ -207,13 +297,11 @@ document.addEventListener('DOMContentLoaded', function(){
     totalMs = delaySec * 1000;
     progressFill.style.width = '0%';
 
-    // usar interval de 100ms para progreso fluido
     timer = setInterval(() => {
       const elapsed = Date.now() - startTime;
       const remainingMs = Math.max(0, totalMs - elapsed);
       const remainingSec = Math.ceil(remainingMs / 1000);
       countdownEl.textContent = `Encriptando en ${remainingSec} s`;
-
       const pct = Math.min(100, (elapsed / totalMs) * 100);
       progressFill.style.width = pct + '%';
 
@@ -223,13 +311,11 @@ document.addEventListener('DOMContentLoaded', function(){
         countdownEl.textContent = 'Encriptando ahora...';
         progressFill.style.width = '100%';
         estado.innerText = 'Enviando...';
-        // llamamos al endpoint
         doEncrypt();
       }
     }, 100);
   }
 
-  // re-habilita controles y limpia UI de countdown
   function resetCountdownUI() {
     if (timer) {
       clearInterval(timer);
@@ -251,10 +337,8 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  // click inicia la cuenta regresiva
   btn.addEventListener('click', startCountdownAndEncrypt);
 
-  // Enter en el input inicia también
   claveInput.addEventListener('keydown', function(e){
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -262,10 +346,8 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 
-  // Si se quiere cancelar con Escape
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && timer) {
-      // cancelar cuenta regresiva
       clearInterval(timer);
       timer = null;
       estado.innerText = 'Cuenta regresiva cancelada.';
